@@ -7,7 +7,9 @@ export async function listCategories(request, response, next) {
     if (!type) return response.status(400).json({ message: 'Tipo inválido.' })
     const [categories] = await pool.query(`SELECT id, nombre FROM ${categoryTables[type]} ORDER BY nombre`)
     response.json(categories)
-  } catch (error) { next(error) }
+  } catch (error) {
+    next(error)
+  }
 }
 
 export async function createCategory(request, response, next) {
@@ -17,5 +19,7 @@ export async function createCategory(request, response, next) {
     if (!type || !name) return response.status(400).json({ message: 'Tipo y nombre son obligatorios.' })
     const [result] = await pool.execute(`INSERT INTO ${categoryTables[type]} (nombre) VALUES (?)`, [name])
     response.status(201).json({ id: result.insertId, nombre: name })
-  } catch (error) { next(error) }
+  } catch (error) {
+    next(error)
+  }
 }

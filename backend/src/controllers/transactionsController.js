@@ -15,7 +15,9 @@ export async function listTransactions(request, response, next) {
     const sql = `${transactionsSql}${type ? ' WHERE tipo = ?' : ''} ORDER BY fecha DESC LIMIT 100`
     const [transactions] = await pool.query(sql, type ? [type] : [])
     response.json(transactions)
-  } catch (error) { next(error) }
+  } catch (error) {
+    next(error)
+  }
 }
 
 export async function createTransaction(request, response, next) {
@@ -25,10 +27,16 @@ export async function createTransaction(request, response, next) {
     const categoryId = Number(request.body.id_cat)
     const concept = String(request.body.concepto || '').trim()
     const date = toSqlDate(request.body.fecha)
-    if (!type || !amount || !categoryId || !concept || !date) return response.status(400).json({ message: 'Completa tipo, monto, concepto, fecha y categoría.' })
-    const [result] = await pool.execute(`INSERT INTO ${transactionTables[type]} (monto, concepto, fecha, id_cat) VALUES (?, ?, ?, ?)`, [amount, concept, date, categoryId])
+    if (!type || !amount || !categoryId || !concept || !date)
+      return response.status(400).json({ message: 'Completa tipo, monto, concepto, fecha y categoría.' })
+    const [result] = await pool.execute(
+      `INSERT INTO ${transactionTables[type]} (monto, concepto, fecha, id_cat) VALUES (?, ?, ?, ?)`,
+      [amount, concept, date, categoryId]
+    )
     response.status(201).json({ id: result.insertId })
-  } catch (error) { next(error) }
+  } catch (error) {
+    next(error)
+  }
 }
 
 export async function deleteTransaction(request, response, next) {
@@ -37,7 +45,9 @@ export async function deleteTransaction(request, response, next) {
     if (!type) return response.status(400).json({ message: 'Tipo inválido.' })
     await pool.execute(`DELETE FROM ${transactionTables[type]} WHERE id = ?`, [request.params.id])
     response.status(204).end()
-  } catch (error) { next(error) }
+  } catch (error) {
+    next(error)
+  }
 }
 
 export { transactionsSql }
