@@ -7,7 +7,6 @@ import { CategoriesPage } from './pages/CategoriesPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { GoalsPage } from './pages/GoalsPage'
 import { MovementsPage } from './pages/MovementsPage'
-import { SettingsPage } from './pages/SettingsPage'
 import { StatisticsPage } from './pages/StatisticsPage'
 import './App.css'
 
@@ -25,7 +24,6 @@ function App() {
     Presupuesto: <BudgetPage onError={setError} />,
     Estadísticas: <StatisticsPage />,
     Metas: <GoalsPage onError={setError} />,
-    Configuración: <SettingsPage onError={setError} />,
   }
 
   return (

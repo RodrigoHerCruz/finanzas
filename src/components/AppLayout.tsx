@@ -2,14 +2,20 @@ import type { ReactNode } from 'react'
 import { Icon, type IconName } from './Icon'
 
 export type PageName =
-  'Resumen' | 'Movimientos' | 'Categorías' | 'Presupuesto' | 'Estadísticas' | 'Metas' | 'Configuración'
-const navigation: [PageName, IconName][] = [
-  ['Resumen', 'grid'],
-  ['Movimientos', 'arrow'],
-  ['Categorías', 'more'],
-  ['Presupuesto', 'wallet'],
-  ['Estadísticas', 'chart'],
-  ['Metas', 'target'],
+  | 'Resumen'
+  | 'Movimientos'
+  | 'Categorías'
+  | 'Presupuesto'
+  | 'Estadísticas'
+  | 'Metas'
+
+const navigation: [PageName, string, IconName][] = [
+  ['Resumen', 'Tu dinero', 'grid'],
+  ['Movimientos', 'Movimientos', 'arrow'],
+  ['Categorías', 'Categorías', 'more'],
+  ['Presupuesto', 'Presupuesto', 'wallet'],
+  ['Estadísticas', 'Estadísticas', 'chart'],
+  ['Metas', 'Metas de ahorro', 'target'],
 ]
 
 export function AppLayout({
@@ -27,59 +33,54 @@ export function AppLayout({
 }) {
   return (
     <main className="app-shell">
-      <aside className="sidebar">
-        <button className="brand" onClick={() => onPageChange('Resumen')}>
-          <span className="brand-mark">a</span>
-          <span>Ahorra</span>
-        </button>
-        <nav className="main-nav">
-          {navigation.map(([label, icon]) => (
-            <button
-              key={label}
-              className={page === label ? 'nav-item active' : 'nav-item'}
-              onClick={() => onPageChange(label)}
-            >
-              <Icon name={icon} />
-              {label}
-            </button>
-          ))}
-        </nav>
-        <div className="sidebar-bottom">
-          <button
-            className={page === 'Configuración' ? 'nav-item active' : 'nav-item'}
-            onClick={() => onPageChange('Configuración')}
-          >
-            <Icon name="settings" />
-            Configuración
-          </button>
-          <div className="user-card">
-            <div className="avatar">RM</div>
-            <div>
-              <strong>Rodrigo Hernandez</strong>
-              <small>Plan personal</small>
-            </div>
-          </div>
-        </div>
-      </aside>
       <section className="content">
-        <header className="topbar">
-          <div>
-            <p className="eyebrow">FINANZAS PERSONALES</p>
-            <h1>{page}</h1>
-            <p className="subtitle">Administra tus ingresos, egresos y metas de ahorro.</p>
+        <header className="site-header">
+          <button className="brand" onClick={() => onPageChange('Resumen')}>
+            <span className="brand-mark">FZ</span>
+            <span>Finanzas<span className="brand-period">.</span></span>
+          </button>
+          <div className="header-menu">
+            <details className="menu-dropdown">
+              <summary aria-label="Abrir menú de secciones">
+                <span className="menu-glyph"><i /><i /><i /></span>
+                <span>Secciones</span>
+                <span className="menu-caret">⌄</span>
+              </summary>
+              <nav className="dropdown-panel" aria-label="Navegación principal">
+                <p className="dropdown-label">IR A</p>
+                {navigation.map(([target, label, icon], index) => (
+                  <button
+                    key={target}
+                    className={page === target ? 'dropdown-item selected' : 'dropdown-item'}
+                    onClick={(event) => {
+                      onPageChange(target)
+                      event.currentTarget.closest('details')?.removeAttribute('open')
+                    }}
+                  >
+                    <span className="dropdown-icon"><Icon name={icon} size={17} /></span>
+                    <span>{label}</span>
+                    <small>{String(index + 1).padStart(2, '0')}</small>
+                  </button>
+                ))}
+              </nav>
+            </details>
           </div>
-          <div className="header-actions">
-            {/* <button className="icon-button" aria-label="Notificaciones">
-              <Icon name="bell" />
-            </button> */}
+          <div className="header-right">
             <button className="add-button" onClick={onAddMovement}>
-              <Icon name="plus" size={18} />
-              Agregar movimiento
+              <Icon name="plus" size={17} />
+              <span>Nuevo movimiento</span>
             </button>
           </div>
         </header>
+        <div className="page-heading">
+          <div>
+            <p className="eyebrow">TU ESPACIO FINANCIERO</p>
+            <h1>{page}<span className="heading-period">.</span></h1>
+          </div>
+        </div>
         {error && <p className="alert">{error}</p>}
         {children}
+        <footer className="page-footer"><span>AHORRA · FINANZAS PERSONALES</span><span>Anenqui <b>↗</b></span></footer>
       </section>
     </main>
   )

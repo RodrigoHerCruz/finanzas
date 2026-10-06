@@ -42,7 +42,7 @@ export function GoalsPage({ onError }: { onError: (message: string) => void }) {
     }
   }
   return (
-    <div className="page-grid">
+    <div className="page-grid goals-page">
       <article className="panel">
         <h2>Tus metas</h2>
         {goals.length ? (
@@ -72,7 +72,7 @@ export function GoalsPage({ onError }: { onError: (message: string) => void }) {
       <FormCard title="Nueva meta" onSubmit={save}>
         <label>
           Nombre
-          <input name="nombre" required placeholder="Ej. Viaje a Japón" />
+          <input name="nombre" required placeholder="" />
         </label>
         <label>
           Monto meta

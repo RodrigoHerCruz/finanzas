@@ -31,7 +31,7 @@ export function CategoriesPage({ onError }: { onError: (message: string) => void
     }
   }
   return (
-    <div className="page-grid">
+    <div className="page-grid categories-page">
       <article className="panel">
         <div className="panel-title">
           <div>

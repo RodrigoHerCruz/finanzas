@@ -1,14 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-html,
-body,
-#root {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100%;
-  font-family: 'DM Sans', Arial, sans-serif;
-}
-body {
-  min-height: 100vh;
-}
+* { box-sizing: border-box; }
+html, body, #root { min-width: 320px; min-height: 100%; margin: 0; }
+body { min-height: 100vh; background: #11152b; }

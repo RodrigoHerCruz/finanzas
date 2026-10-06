@@ -27,12 +27,12 @@ export function DashboardPage({
   if (!data) return <p>Cargando resumen…</p>
   const percentage = data.goal ? Math.min(100, Math.round((data.goal.saldo / data.goal.monto_meta) * 100)) : 0
   return (
-    <>
+    <div className="dashboard-page">
       <div className="balance-card">
         <div className="balance-copy">
           <p>Saldo del mes</p>
           <h2>{currency(data.saldo)}</h2>
-          <div className="trend">Ingresos menos egresos de este mes</div>
+          <div className="trend">Dinero Actual</div>
         </div>
         <div className="balance-art">
           <div className="circle c1" />
@@ -48,9 +48,8 @@ export function DashboardPage({
         </div>
       </div>
       <section className="metrics">
-        <MetricCard icon="arrow" title="Ingresos del mes" value={data.ingresos} type="income" />
-        <MetricCard icon="arrow" title="Gastos del mes" value={data.egresos} type="expense" />
-        <MetricCard icon="target" title="Ahorro acumulado" value={data.ahorro} type="savings" />
+        <MetricCard  title="Gastos del mes" value={data.egresos} type="expense" />
+        <MetricCard  title="Ahorro acumulado" value={data.ahorro} type="savings" />
       </section>
       <section className="dashboard-grid">
         <article className="panel">
@@ -65,11 +64,10 @@ export function DashboardPage({
           </div>
           <TransactionList rows={data.recent} />
         </article>
-        <article className="panel">
+        {/* <article className="panel">
           <div className="panel-title">
             <div>
               <h2>Accesos rápidos</h2>
-              <p>Organiza tus finanzas</p>
             </div>
           </div>
           <button className="outline-button" onClick={() => onPageChange('Presupuesto')}>
@@ -78,7 +76,7 @@ export function DashboardPage({
           <button className="outline-button" onClick={() => onPageChange('Metas')}>
             Gestionar metas de ahorro <Icon name="chevron" size={16} />
           </button>
-        </article>
+        </article> */}
       </section>
       {data.goal ? (
         <article className="goal-card">
@@ -105,6 +103,6 @@ export function DashboardPage({
       ) : (
         <EmptyState title="Aún no tienes una meta" text="Crea una desde la sección Metas." />
       )}
-    </>
+    </div>
   )
 }

@@ -33,7 +33,7 @@ export function MovementsPage({
     }
   }
   return (
-    <article className="panel page-panel">
+    <article className="panel page-panel movements-page">
       <div className="filter-row">
         {['TODOS', 'INGRESO', 'EGRESO'].map((type) => (
           <button

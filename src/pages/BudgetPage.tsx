@@ -39,7 +39,7 @@ export function BudgetPage({ onError }: { onError: (message: string) => void }) 
     }
   }
   return (
-    <div className="page-grid">
+    <div className="page-grid budget-page">
       <article className="panel">
         <h2>Límites registrados</h2>
         {limits.length ? (

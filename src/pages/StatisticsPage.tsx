@@ -18,7 +18,7 @@ export function StatisticsPage() {
     .filter((row) => row.tipo === 'EGRESO')
     .reduce((total, row) => total + Number(row.monto), 0)
   return (
-    <section className="metrics stats">
+    <section className="metrics stats stats-page">
       <MetricCard icon="arrow" title="Total de ingresos" value={income} type="income" />
       <MetricCard icon="arrow" title="Total de egresos" value={expense} type="expense" />
       <MetricCard icon="target" title="Balance histórico" value={income - expense} type="savings" />
